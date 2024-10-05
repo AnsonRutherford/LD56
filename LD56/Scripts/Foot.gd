@@ -1,7 +1,7 @@
 extends Node3D
 
 var offset
-var max_offset_squared
+var max_offset
 var step_duration
 var step_height
 
@@ -22,11 +22,11 @@ var second_bone
 func init(init_foot_scale, init_offset, init_scale, init_step_duration, init_step_height, init_bone_scale):
 	scale = Vector3.ONE * init_foot_scale
 	offset = init_offset * init_scale
-	max_offset_squared = pow(init_scale, 2)
+	max_offset = init_scale * 0.3
 	step_duration = init_step_duration
 	step_height = init_step_height * init_scale
 	
-	bone_length = init_bone_scale.z
+	bone_length = init_bone_scale.z * init_foot_scale * init_scale
 	
 	first_bone = fk_bone.instantiate()
 	first_bone.scale = init_bone_scale
@@ -51,14 +51,14 @@ func update(delta, stepping):
 		else:
 			global_position = lerp(pre_step, post_step, step_timer)
 			global_position.y += step_height * (1 - pow(((2 * (step_timer)) - 1), 2)) # 1 - (2x - 1)^2
-	elif !stepping and (global_position - target).length() > max_offset_squared:
+	elif !stepping and (global_position - target).length() > max_offset:
 		step = true
 		step_timer = 0
 		pre_step = global_position
 		post_step = target
 		
 	var elbow = FKBone.get_elbow(parent_pos, global_position, bone_length)
-	#first_bone.update(parent_pos, global_position)
-	#second_bone.update(parent_pos, global_position)
+	first_bone.update(parent_pos, elbow)
+	second_bone.update(elbow, global_position)
 	
 	return step

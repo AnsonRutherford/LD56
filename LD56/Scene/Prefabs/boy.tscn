@@ -20,9 +20,5 @@ material_override = SubResource("StandardMaterial3D_2ugbx")
 mesh = SubResource("SphereMesh_01nfg")
 script = ExtResource("1_egtdo")
 
-[node name="Foot" type="Node3D" parent="."]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Foot"]
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_rtk1i")

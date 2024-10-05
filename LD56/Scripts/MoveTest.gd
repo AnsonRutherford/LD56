@@ -10,12 +10,16 @@ var stepping = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var offsets = [Vector3.FORWARD, Vector3.RIGHT, Vector3.BACK, Vector3.LEFT]
+	var offsets = [
+		Vector3.FORWARD + Vector3.DOWN / 2, 
+		Vector3.RIGHT + Vector3.DOWN / 2, 
+		Vector3.BACK + Vector3.DOWN / 2, 
+		Vector3.LEFT + Vector3.DOWN / 2]
 	var foot_count = 0
 	for offset in offsets:
 		var foot = footPrefab.instantiate()
 		add_child(foot)
-		foot.init(0.5, offset, scale.x, 0.1, 1, Vector3(0.1, 0.1, 0.75))
+		foot.init(0.5, offset, scale.x, 0.3, 1, Vector3(0.2, 0.2, 2))
 		feet.append(foot)
 		foot_index.append(foot_count)
 		foot_count += 1
@@ -25,12 +29,10 @@ func _process(delta):
 	
 	# Move
 	var move_dir = Vector3.ZERO
-	move_dir.x += 1 if Input.is_physical_key_pressed(KEY_D) else 0
-	move_dir.x -= 1 if Input.is_physical_key_pressed(KEY_A) else 0
-	move_dir.z += 1 if Input.is_physical_key_pressed(KEY_W) else 0
-	move_dir.z -= 1 if Input.is_physical_key_pressed(KEY_S) else 0
+	move_dir.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
+	move_dir.z = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
 	var velocity = move_dir.length()
-	position += move_dir * delta
+	position += move_dir * delta * scale.x
 	
 	# Step with feet
 	var step = false
