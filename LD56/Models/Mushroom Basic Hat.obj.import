@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cup0e5mgclilt"
+path="res://.godot/imported/Mushroom Basic Hat.obj-bc8c4670af1b1e9490b198fad420692b.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Mushroom Basic Hat.obj-bc8c4670af1b1e9490b198fad420692b.mesh"]
+
+source_file="res://Models/Mushroom Basic Hat.obj"
+dest_files=["res://.godot/imported/Mushroom Basic Hat.obj-bc8c4670af1b1e9490b198fad420692b.mesh", "res://.godot/imported/Mushroom Basic Hat.obj-bc8c4670af1b1e9490b198fad420692b.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

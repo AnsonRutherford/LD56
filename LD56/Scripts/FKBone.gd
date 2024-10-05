@@ -2,9 +2,13 @@ class_name FKBone
 extends Node3D
 	
 func update(start, end):
-	var dir = end - start
-	global_position = start + dir / 2
-	look_at(end, dir.cross(Vector3(dir.z, 0, -dir.x)))
+	if start != end:
+		var dir = end - start
+		var up = dir.cross(Vector3(dir.z, 0, -dir.x))
+		var mid = start + dir / 2
+		if !up.is_zero_approx() and !up.cross(end - mid).is_zero_approx():
+			global_position = mid
+			look_at(end, up)
 	
 static func get_elbow(start, end, arm_length):
 	# Right now, great at two equal lengths, won't touch anything else

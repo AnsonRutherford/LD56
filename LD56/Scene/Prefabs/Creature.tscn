@@ -1,9 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://ds0lmv0l3p4by"]
+[gd_scene load_steps=10 format=3 uid="uid://ds0lmv0l3p4by"]
 
 [ext_resource type="Script" path="res://Scripts/Creature.gd" id="1_2y8p4"]
 [ext_resource type="Script" path="res://Scripts/Face.gd" id="1_egtdo"]
+[ext_resource type="Script" path="res://Scripts/Hat.gd" id="2_iaojd"]
 [ext_resource type="Texture2D" uid="uid://bkkb1uxa3bkda" path="res://Textures/face1.png" id="2_iqf5e"]
 [ext_resource type="Texture2D" uid="uid://barehvsolasis" path="res://Textures/face2.png" id="3_gmbya"]
+[ext_resource type="ArrayMesh" uid="uid://cup0e5mgclilt" path="res://Models/Mushroom Basic Hat.obj" id="5_2qgv8"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rtk1i"]
 
@@ -13,14 +15,24 @@
 
 [node name="Creature" type="CharacterBody3D"]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+collision_layer = 3
 script = ExtResource("1_2y8p4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_rtk1i")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="Hat" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.95, 0, 0, 0, 0.95, 0, 0, 0, 0.95, 0, 0, 0)
+mesh = ExtResource("5_2qgv8")
+skeleton = NodePath("../Face")
+script = ExtResource("2_iaojd")
+
+[node name="Face" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_obl2g")
 surface_material_override/0 = SubResource("StandardMaterial3D_yejld")
 script = ExtResource("1_egtdo")
 face = ExtResource("2_iqf5e")
 blink = ExtResource("3_gmbya")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+debug_enabled = true

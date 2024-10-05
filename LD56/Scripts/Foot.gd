@@ -23,7 +23,7 @@ func init(init_foot_scale, init_offset, init_scale, init_step_duration, init_ste
 	scale = Vector3.ONE * init_foot_scale
 	offset = init_offset * init_scale
 	max_offset = init_scale * 0.3
-	step_duration = init_step_duration
+	step_duration = init_step_duration * init_scale
 	step_height = init_step_height * init_scale
 	
 	bone_length = init_bone_scale.z * init_foot_scale * init_scale
