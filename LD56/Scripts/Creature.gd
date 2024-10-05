@@ -7,6 +7,13 @@ var feet = []
 var foot_index = []
 
 var stepping = false
+var minimum_step_speed = 1
+
+var speed = 3
+
+@onready
+var target_position = Vector3.RIGHT * randf_range(-10, 10) + Vector3.FORWARD * randf_range(-10, 10)
+var target_timer = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -19,26 +26,33 @@ func _ready():
 	for offset in offsets:
 		var foot = footPrefab.instantiate()
 		add_child(foot)
-		foot.init(0.5, offset, scale.x, 0.3, 1, Vector3(0.2, 0.2, 2))
+		foot.init(0.5, offset, scale.x, 0.8 / speed, 1, Vector3(0.2, 0.2, 2))
 		feet.append(foot)
 		foot_index.append(foot_count)
 		foot_count += 1
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	target_timer -= delta
+	if target_timer <= 0:
+		target_position = Vector3.RIGHT * randf_range(-10, 10) + Vector3.FORWARD * randf_range(-10, 10)
+		target_timer = 5 + randf() * 10
+
+func _physics_process(delta):
 	
 	# Move
+	var distance = (target_position - global_position).length()
 	var move_dir = Vector3.ZERO
-	move_dir.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
-	move_dir.z = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
-	var velocity = move_dir.length()
-	position += move_dir * delta * scale.x
+	var step_speed = minimum_step_speed
+	if distance > 0.1:
+		move_dir = (target_position - global_position) / distance
+		step_speed = max(minimum_step_speed, speed) # ???
+		position += move_dir * delta * scale.x * speed
 	
 	# Step with feet
 	var step = false
 	var stepping_foot = -1
 	for foot in foot_index:
-		if feet[foot].update(delta * max(velocity, 1), stepping or step):
+		if feet[foot].update(delta * max(step_speed, 1), move_dir * scale.x * speed, step or stepping):
 			step = true
 			stepping_foot = foot
 	stepping = step

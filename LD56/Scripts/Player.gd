@@ -1,9 +1,15 @@
+class_name Player
 extends CharacterBody3D
+
+static var instance
 
 var speed = 4
 
 @onready
 var camera = get_node("Camera3D")
+
+func _ready():
+	instance = self
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

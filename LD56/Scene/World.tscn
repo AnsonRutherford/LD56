@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://4ptrg3nmtj4q"]
 
-[ext_resource type="PackedScene" uid="uid://ds0lmv0l3p4by" path="res://Scene/Prefabs/boy.tscn" id="1_njf38"]
+[ext_resource type="PackedScene" uid="uid://ds0lmv0l3p4by" path="res://Scene/Prefabs/Creature.tscn" id="1_njf38"]
 [ext_resource type="PackedScene" uid="uid://ctkhodyxj1hck" path="res://Scene/Prefabs/Player.tscn" id="2_elip3"]
 
 [sub_resource type="Environment" id="Environment_lwpgb"]
@@ -27,3 +27,37 @@ transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, -0.153723, 0)
 mesh = SubResource("PlaneMesh_u07gb")
 
 [node name="Boy" parent="." instance=ExtResource("1_njf38")]
+
+[node name="Boy2" parent="." instance=ExtResource("1_njf38")]
+
+[node name="Boy3" parent="." instance=ExtResource("1_njf38")]
+
+[node name="Boy4" parent="." instance=ExtResource("1_njf38")]
+
+[node name="Boy5" parent="." instance=ExtResource("1_njf38")]
+
+[node name="Boy6" parent="." instance=ExtResource("1_njf38")]
+
+[node name="Boy7" parent="." instance=ExtResource("1_njf38")]
+
+[node name="Boy8" parent="." instance=ExtResource("1_njf38")]
+
+[node name="Boy9" parent="." instance=ExtResource("1_njf38")]
+
+[node name="Boy10" parent="." instance=ExtResource("1_njf38")]
+
+[node name="Boy11" parent="." instance=ExtResource("1_njf38")]
+
+[node name="Boy12" parent="." instance=ExtResource("1_njf38")]
+
+[node name="Boy13" parent="." instance=ExtResource("1_njf38")]
+
+[node name="Boy14" parent="." instance=ExtResource("1_njf38")]
+
+[node name="Boy15" parent="." instance=ExtResource("1_njf38")]
+
+[node name="Boy16" parent="." instance=ExtResource("1_njf38")]
+
+[node name="Boy17" parent="." instance=ExtResource("1_njf38")]
+
+[node name="Boy18" parent="." instance=ExtResource("1_njf38")]
