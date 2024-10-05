@@ -1,0 +1,28 @@
+[gd_scene load_steps=7 format=3 uid="uid://ds0lmv0l3p4by"]
+
+[ext_resource type="Script" path="res://Scripts/MoveTest.gd" id="1_2y8p4"]
+[ext_resource type="Script" path="res://Scripts/FaceRotateTest.gd" id="1_egtdo"]
+[ext_resource type="Texture2D" uid="uid://cqlc6pbyotwl5" path="res://icon.svg" id="2_nggce"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2ugbx"]
+albedo_texture = ExtResource("2_nggce")
+
+[sub_resource type="SphereMesh" id="SphereMesh_01nfg"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rtk1i"]
+
+[node name="Boy" type="CharacterBody3D"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+script = ExtResource("1_2y8p4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_2ugbx")
+mesh = SubResource("SphereMesh_01nfg")
+script = ExtResource("1_egtdo")
+
+[node name="Foot" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Foot"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_rtk1i")

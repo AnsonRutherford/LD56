@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://4ptrg3nmtj4q"]
+
+[ext_resource type="PackedScene" uid="uid://ds0lmv0l3p4by" path="res://Scene/Prefabs/boy.tscn" id="1_njf38"]
+[ext_resource type="PackedScene" uid="uid://ctkhodyxj1hck" path="res://Scene/Prefabs/Player.tscn" id="2_elip3"]
+
+[sub_resource type="Environment" id="Environment_lwpgb"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Boy" parent="." instance=ExtResource("1_njf38")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_lwpgb")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+
+[node name="Player" parent="." instance=ExtResource("2_elip3")]
