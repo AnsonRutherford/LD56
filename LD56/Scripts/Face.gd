@@ -14,7 +14,7 @@ var blink_timer = 0
 var blink_stop = 0
 
 @onready
-var hat = get_node("../Face")
+var hat = get_node("../Hat")
 
 var look_target
 
@@ -26,9 +26,9 @@ func _ready():
 func _physics_process(delta):
 	
 	# Looking
-	look_target = Player.instance.global_position
-	hat.look_target = Player.instance.global_position
-	var look_dir = Face.get_look_direction(global_position, Player.instance.global_position, 1000, 1)
+	look_target = Player.eye_contact()
+	hat.look_target = look_target
+	var look_dir = Face.get_look_direction(global_position, look_target, 1000, 1)
 	if look_dir:
 		look_at(look_dir + global_position)
 
@@ -54,3 +54,6 @@ static func get_look_direction(position, target_position, height_ratio_max, heig
 		return flat_look_dir + Vector3.UP * look_y
 	else:
 		return false
+
+func set_color(color):
+	get_surface_override_material(0).albedo_color = color

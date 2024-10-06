@@ -4,6 +4,7 @@ var offset
 var max_offset
 var step_duration
 var step_height
+var start_offset
 
 var step = false
 var step_timer = 0
@@ -11,6 +12,7 @@ var pre_step
 var post_step
 
 var parent
+var last_position
 
 @onready
 var fk_bone = preload("res://Scene/Prefabs/FKBone.tscn")
@@ -19,28 +21,31 @@ var bone_length
 var first_bone
 var second_bone
 
-func init(init_foot_scale, init_offset, init_scale, init_step_duration, init_step_height, init_bone_scale):
-	scale = Vector3.ONE * init_foot_scale
-	offset = init_offset * init_scale
-	max_offset = init_scale * 0.3
-	step_duration = init_step_duration * init_scale
-	step_height = init_step_height * init_scale
+func init(params):	
+	scale = Vector3.ONE * params["foot_scale"]
+	offset = params["offset"]
+	max_offset = params["max_step_distance"]
+	step_duration = params["step_duration"]
+	step_height = params["step_height"]
+	start_offset = params["start_offset"]
 	
-	bone_length = init_bone_scale.z * init_foot_scale * init_scale
+	bone_length = params["bone_length"]
 	
 	first_bone = fk_bone.instantiate()
-	first_bone.scale = init_bone_scale
+	first_bone.scale = params["bone_scale"]
 	add_child(first_bone)
 	
 	second_bone = fk_bone.instantiate()
-	second_bone.scale = init_bone_scale
+	second_bone.scale = params["bone_scale"]
 	add_child(second_bone)
 	
 	parent = get_parent_node_3d()
 	global_position = parent.global_position + offset
-	top_level = true
+	last_position = global_position
+	#top_level = true
 	
 func update(delta, move_dir, stepping):
+	global_position = last_position
 	var parent_pos = parent.global_position
 	var target = parent_pos + offset
 	if step:
@@ -57,8 +62,13 @@ func update(delta, move_dir, stepping):
 		pre_step = global_position
 		post_step = target + (move_dir * step_duration)
 		
-	var elbow = FKBone.get_elbow(parent_pos, global_position, bone_length)
-	first_bone.update(parent_pos, elbow)
+	var elbow = FKBone.get_elbow(parent_pos + start_offset, global_position, bone_length)
+	first_bone.update(parent_pos + start_offset, elbow)
 	second_bone.update(elbow, global_position)
 	
+	last_position = global_position
 	return step
+	
+func reset_position():
+	last_position = global_position
+	step = false
